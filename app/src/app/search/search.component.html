@@ -1,0 +1,82 @@
+<mat-drawer-container autosize>
+    <mat-drawer mode="side" opened>
+        <div>
+            <app-live-input description="Name" [(value)]="this.query.nameAnd" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            </app-live-input>
+        </div>
+        <div>
+            <app-live-input description="Name (Optional)" [(value)]="this.query.nameOr" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            </app-live-input>
+        </div>
+        <div>
+            <app-live-input description="Name (Exclude)" [(value)]="this.query.nameNot" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            </app-live-input>
+        </div>
+        <div>
+            <app-live-input description="Text" [(value)]="this.query.textAnd" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            </app-live-input>
+        </div>
+        <div>
+            <app-live-input description="Text (Optional)" [(value)]="this.query.textOr" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            </app-live-input>
+        </div>
+        <div>
+            <app-live-input description="Text (Exclude)" [(value)]="this.query.textNot" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            </app-live-input>
+        </div>
+        <!-- <mat-button-toggle-group [(ngModel)]="displayMode" name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle value="grid" selected>
+                <mat-icon aria-hidden="false" aria-label="Grid View">grid_view</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="list">
+                <mat-icon aria-hidden="false" aria-label="List">list_view</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="text">
+                <mat-icon aria-hidden="false" aria-label="Text">short_text</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+        
+        <div>
+            <app-live-text-search key="nameOr" description="Name (Optional)" (liveSearch$)="liveSearch($event)"
+                [value]="searchService.query.nameOr" placeholder="Birds of Paradise, Fear, etc...">
+            </app-live-text-search>
+        </div>
+        <div>
+            <app-live-text-search key="nameNot" description="Name (Exclude)" (liveSearch$)="liveSearch($event)"
+                [value]="searchService.query.nameNot" placeholder="Birds of Paradise, Fear, etc...">
+            </app-live-text-search>
+        </div>
+        <div>
+            <app-live-text-search key="textAnd" description="Text" (liveSearch$)="liveSearch($event)"
+                [value]="searchService.query.textAnd"></app-live-text-search>
+        </div>
+        <div>
+            <app-live-text-search key="textOr" description="Text (Optional)" (liveSearch$)="liveSearch($event)"
+                [value]="searchService.query.textOr"></app-live-text-search>
+        </div>
+        <ng-container *ngIf="this.enums$ | async as enums">
+            <div>
+                <app-chip-search key="supertypesAnd" description="Supertype" placeholder="World, etc..."
+                    [allTerms]="enums.card.supertypes" (selectedTerms$)="liveSearchArray($event)"></app-chip-search>
+            </div>
+            <div>
+                <app-chip-search key="typesAnd" description="Type" placeholder="Creature, Instance, Sorcery..."
+                    [allTerms]="enums.card.types" (selectedTerms$)="liveSearchArray($event)"></app-chip-search>
+            </div>
+            <div>
+                <app-chip-search key="subtypesAnd" description="Subtype" placeholder="Angel, Dragon, Frog..."
+                    [allTerms]="enums.card.subtypes" (selectedTerms$)="liveSearchArray($event)"></app-chip-search>
+            </div>
+        </ng-container> -->
+    </mat-drawer>
+    <mat-drawer-content>
+        <!-- <app-search-results [displayMode]="displayMode" (page)="changePage($event)"></app-search-results> -->
+        <div *ngIf="this.searchResult$ | async as searchResult">
+            <div *ngFor="let card of searchResult.cards" class="mtg-image-placeholder">
+                <img *ngIf="card.printing !== undefined"
+                    src="https://api.scryfall.com/cards/{{card.printing.identifiers.scryfallId}}?format=image"
+                    class="mtg-image">
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

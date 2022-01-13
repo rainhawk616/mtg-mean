@@ -1,0 +1,4 @@
+<mat-form-field appearance="standard">
+    <mat-label>{{description}}</mat-label>
+    <input [ngModel]="value" (ngModelChange)="onNgModelChange($event)" matInput placeholder={{placeholder}}>
+</mat-form-field>
