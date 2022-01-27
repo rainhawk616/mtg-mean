@@ -1,6 +1,7 @@
 import createError, { HttpError } from "http-errors";
 import _debug from 'debug';
 import express, { json, urlencoded, static as _static, NextFunction} from 'express';
+import session from 'express-session';
 import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -13,6 +14,7 @@ import { CardService } from "./services/CardService";
 import dotenv from 'dotenv';
 import { nextTick } from "process";
 import { DataTypesService } from "./services/DataTypesService";
+import { Session } from "inspector";
 
 dotenv.config();
 
@@ -39,6 +41,17 @@ export default class App {
 
     this.app = express();
 
+    const sessionConfig:session.SessionOptions = {
+      secret:'test',
+      resave:false,
+      saveUninitialized:false,
+      cookie : {
+        sameSite: 'strict', // THIS is the config you are looing for.
+      }
+    };
+
+    this.app.use(session(sessionConfig));
+
     // view engine setup
     this.app.set('views', join(__dirname, '../src/views'));
     this.app.set('view engine', 'ejs');
@@ -46,7 +59,6 @@ export default class App {
     this.app.use(logger('dev'));
     this.app.use(json());
     this.app.use(urlencoded({ extended: false }));
-    this.app.use(cookieParser());
     this.app.use(_static(join(__dirname, '../src/public')));
     // app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
     // app.use('/javascripts', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
