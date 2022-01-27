@@ -26,8 +26,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        automatic_release_tag: "latest"
-        prerelease: true
     - run: npm ci && cd app && npm ci
     - run: npm run build:prod && cd app && npm run build:prod
+    - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/<tagname>',
+              sha: context.sha
+            })
     
