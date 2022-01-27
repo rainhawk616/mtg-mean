@@ -12,6 +12,7 @@ import { Db, MongoClient } from "mongodb";
 import { CardService } from "./services/CardService";
 import dotenv from 'dotenv';
 import { nextTick } from "process";
+import { DataTypesService } from "./services/DataTypesService";
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ export default class App {
   private app: Application;
   private mongoClient:MongoClient;
   private db:Db;
-  private services: { CardService:CardService };
+  private services: { CardService:CardService, DataTypesService: DataTypesService};
 
   constructor(port:any) {
     if(!process.env.MONGODB_URL) {
@@ -32,6 +33,7 @@ export default class App {
     this.db = this.mongoClient.db('mtg-mean');
     this.services = {
         CardService: new CardService(this.db),
+        DataTypesService: new DataTypesService(this.db),
     }
 
 

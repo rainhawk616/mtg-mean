@@ -1,29 +1,51 @@
 <mat-drawer-container autosize>
     <mat-drawer mode="side" opened>
         <div>
-            <app-live-input description="Name" [(value)]="this.query.nameAnd" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            <app-live-input description="Name" [(value)]="this.query.nameAnd" (valueChange)="this.search.next()"
+                placeholder="Birds of Paradise, Fear, etc...">
             </app-live-input>
         </div>
         <div>
-            <app-live-input description="Name (Optional)" [(value)]="this.query.nameOr" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            <app-live-input description="Name (Optional)" [(value)]="this.query.nameOr"
+                (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
             </app-live-input>
         </div>
         <div>
-            <app-live-input description="Name (Exclude)" [(value)]="this.query.nameNot" (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
+            <app-live-input description="Name (Exclude)" [(value)]="this.query.nameNot"
+                (valueChange)="this.search.next()" placeholder="Birds of Paradise, Fear, etc...">
             </app-live-input>
         </div>
         <div>
-            <app-live-input description="Text" [(value)]="this.query.textAnd" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            <app-live-input description="Text" [(value)]="this.query.textAnd" (valueChange)="this.search.next()"
+                placeholder="Flying, Trample, etc...">
             </app-live-input>
         </div>
         <div>
-            <app-live-input description="Text (Optional)" [(value)]="this.query.textOr" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            <app-live-input description="Text (Optional)" [(value)]="this.query.textOr"
+                (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
             </app-live-input>
         </div>
         <div>
-            <app-live-input description="Text (Exclude)" [(value)]="this.query.textNot" (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
+            <app-live-input description="Text (Exclude)" [(value)]="this.query.textNot"
+                (valueChange)="this.search.next()" placeholder="Flying, Trample, etc...">
             </app-live-input>
         </div>
+        <ng-container *ngIf="this.dataTypes$ | async as dataTypes">
+            <div>
+                <app-list-input key="supertypesAnd" description="Supertype" placeholder="World, etc..." [possibleValues]="dataTypes.card.types">
+                </app-list-input>
+            </div>
+            <!-- <div>
+                <app-list-input key="typesAnd" description="Type" placeholder="Creature, Instance, Sorcery..."
+                    >
+                </app-list-input>
+            </div>
+            <div>
+                <app-list-input key="subtypesAnd" description="Subtype" placeholder="Angel, Dragon, Frog..."
+                    [allTerms]="dataTypes.card.subtypes">
+                </app-list-input>
+            </div> -->
+        </ng-container>
         <!-- <mat-button-toggle-group [(ngModel)]="displayMode" name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="grid" selected>
                 <mat-icon aria-hidden="false" aria-label="Grid View">grid_view</mat-icon>
