@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node .",
         "build": "tsc && cd app && npm run build",
+        "build:prod": "tsc && cd app && npm run build:prod",
         "postinstall": "cd app && npm install",
         "populate": "node ./dist/scripts/populate.js"
     },
