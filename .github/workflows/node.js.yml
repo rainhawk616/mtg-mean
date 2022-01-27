@@ -26,8 +26,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - uses: JasonEtco/build-and-tag-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
     - run: npm ci && cd app && npm ci
     - run: npm run build:prod && cd app && npm run build:prod
