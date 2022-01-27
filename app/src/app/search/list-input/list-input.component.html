@@ -2,7 +2,7 @@
   <mat-label>{{description}}</mat-label>
   <mat-chip-list #chipList aria-label="description">
     <mat-chip
-      *ngFor="let value of selectedValues"
+      *ngFor="let value of values"
       [selectable]=false
       (removed)="remove(value)">
       {{value}}

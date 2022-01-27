@@ -13,9 +13,9 @@ import { ListInputComponent } from './list-input/list-input.component';
 
 @NgModule({
   declarations: [
-    SearchComponent,
     LiveInputComponent,
     ListInputComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,

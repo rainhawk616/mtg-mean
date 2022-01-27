@@ -32,19 +32,23 @@
         </div>
         <ng-container *ngIf="this.dataTypes$ | async as dataTypes">
             <div>
-                <app-list-input key="supertypesAnd" description="Supertype" placeholder="World, etc..." [possibleValues]="dataTypes.card.types">
+                <app-list-input key="supertypesAnd" description="Supertype" placeholder="World, etc..."
+                    [(values)]="query.supertypesAnd" (valuesChange)="this.search.next()"
+                    [possibleValues]="dataTypes.card.supertypes">
                 </app-list-input>
             </div>
-            <!-- <div>
+            <div>
                 <app-list-input key="typesAnd" description="Type" placeholder="Creature, Instance, Sorcery..."
-                    >
+                    [(values)]="query.typesAnd" (valuesChange)="this.search.next()"
+                    [possibleValues]="dataTypes.card.types">
                 </app-list-input>
             </div>
             <div>
                 <app-list-input key="subtypesAnd" description="Subtype" placeholder="Angel, Dragon, Frog..."
-                    [allTerms]="dataTypes.card.subtypes">
+                    [(values)]="query.subtypesAnd" (valuesChange)="this.search.next()"
+                    [possibleValues]="dataTypes.card.subtypes">
                 </app-list-input>
-            </div> -->
+            </div>
         </ng-container>
         <!-- <mat-button-toggle-group [(ngModel)]="displayMode" name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="grid" selected>

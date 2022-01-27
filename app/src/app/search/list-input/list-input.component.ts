@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -15,8 +15,10 @@ export class ListInputComponent {
   @Input() description!:string;
   @Input() placeholder!:string;
   @Input() possibleValues!:string[];
+  @Input() values!: string[];
+  @Output() valuesChange:EventEmitter<string[]> = new EventEmitter<string[]>();
+
   filteredValues: Observable<string[]>;
-  selectedValues: string[] = [];
   valueCtrl = new FormControl();
   @ViewChild('valueInput') valueInput!: ElementRef<HTMLInputElement>;
 
@@ -27,6 +29,11 @@ export class ListInputComponent {
     );
   }
 
+  private pushValues(value:string) {
+    this.values.push(value);
+    this.valuesChange.emit(this.values);
+  }
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim().toLowerCase();
 
@@ -34,20 +41,20 @@ export class ListInputComponent {
 
     // Add our value
     if (~matchingIndex) {
-      this.selectedValues.push(this.possibleValues[matchingIndex]);
+      this.pushValues(this.possibleValues[matchingIndex]);
+      this.valuesChange.emit(this.values);
+       // Clear the input value
+      event.chipInput!.clear();
+      this.valueCtrl.setValue(null);
     }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.valueCtrl.setValue(null);
   }
 
   remove(value: string): void {
-    const index = this.selectedValues.indexOf(value);
+    const index = this.values.indexOf(value);
 
     if (index >= 0) {
-      this.selectedValues.splice(index, 1);
+      this.values.splice(index, 1);
+      this.valuesChange.emit(this.values);
     }
   }
 
@@ -58,7 +65,7 @@ export class ListInputComponent {
 
     // Add our value
     if (~matchingIndex) {
-      this.selectedValues.push(this.possibleValues[matchingIndex]);
+      this.pushValues(this.possibleValues[matchingIndex]);
       this.valueInput.nativeElement.value = '';
       this.valueCtrl.setValue(null);
     }
