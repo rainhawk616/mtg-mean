@@ -26,8 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci && cd app && npm ci
-    - run: npm run build:prod && cd app && npm run build:prod
     - name: Create tag
         uses: actions/github-script@v5
         with:
@@ -38,4 +36,5 @@ jobs:
               ref: 'refs/tags/<tagname>',
               sha: context.sha
             })
-    
+    - run: npm ci && cd app && npm ci
+    - run: npm run build:prod && cd app && npm run build:prod
