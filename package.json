@@ -8,7 +8,8 @@
         "build": "tsc && cd app && npm run build",
         "build:prod": "tsc && cd app && npm run build:prod",
         "postinstall": "cd app && npm install",
-        "populate": "node ./dist/scripts/populate.js"
+        "populate": "node ./dist/scripts/populate.js",
+        "deploy": "git push -f heroku HEAD:main"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.2",
