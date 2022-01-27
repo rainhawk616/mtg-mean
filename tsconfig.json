@@ -21,7 +21,7 @@
         "target": "es6",
     },
     "exclude": [
-        "app",
+        "src/app",
         "node_modules",
         "src/public",
     ]

@@ -5,8 +5,8 @@
     "main": "dist/Server.js",
     "scripts": {
         "start": "node .",
-        "build": "tsc && cd app && npm run build",
-        "postinstall": "cd app && npm install",
+        "build": "tsc && cd src/app && npm run build",
+        "postinstall": "cd src/app && npm install",
         "populate": "node ./dist/scripts/populate.js"
     },
     "devDependencies": {
