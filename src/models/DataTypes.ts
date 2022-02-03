@@ -18,7 +18,7 @@ export interface DataTypes {
         rarity: string[],
         side: string[],
         subtypes: string[],
-        supertypes: Set<string>,
+        supertypes: string[],
         types: string[],
         watermark: string[]
     }

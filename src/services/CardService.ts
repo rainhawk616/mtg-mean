@@ -57,11 +57,14 @@ export class CardService {
       textAnd,
       textOr,
       textNot,
-      supertypesAnd,
-      typesAnd,
-      subtypesAnd,
+      //supertypesAnd,
+      //typesAnd,
+      //subtypesAnd,
       pageSize,
       pageIndex,
+      supertypes,
+      types,
+      subtypes,
     } = query;
 
     const filter: {
@@ -124,6 +127,13 @@ export class CardService {
         })
       })
     }
+    
+    const supertypesAnd = supertypes.filter(type => type.operator === 'and').map(type => type.value);
+    const typesAnd = types.filter(type => type.operator === 'and').map(type => type.value);
+    const subtypesAnd = subtypes.filter(type => type.operator === 'and').map(type => type.value);
+    const supertypesOr = supertypes.filter(type => type.operator === 'or').map(type => type.value);
+    const typesOr = types.filter(type => type.operator === 'or').map(type => type.value);
+    const subtypesOr = subtypes.filter(type => type.operator === 'or').map(type => type.value);
 
     if (supertypesAnd && supertypesAnd.length > 0) {
       if (!filter.$and) {
@@ -132,6 +142,17 @@ export class CardService {
       filter.$and.push({
         supertypes: {
           $all: supertypesAnd
+        }
+      })
+    }
+
+    if (supertypesOr && supertypesOr.length > 0) {
+      if (!filter.$and) {
+        filter.$and = [];
+      }
+      filter.$and!.push({
+        supertypes: {
+          $in: supertypesOr
         }
       })
     }

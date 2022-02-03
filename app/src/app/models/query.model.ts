@@ -1,3 +1,5 @@
+import { QueryClause } from "./query-clause.model";
+
 export class Query {
     nameAnd: string = '';
     nameOr: string = '';
@@ -10,4 +12,9 @@ export class Query {
     subtypesAnd: string[] = [];
     pageIndex: number = 0;
     pageSize: number = 20;
+
+    supertypes:QueryClause<string>[] = [];
+    types:QueryClause<string>[] = [];
+    subtypes:QueryClause<string>[] = [];
+
 }

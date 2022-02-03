@@ -1,0 +1,50 @@
+<div *ngFor="let clause of supertypes; let i = index" class="mtg-query-clause">
+    <button class="mtg-query-clause-clear" (click)="clear('supertype', i)">
+        <mat-icon>clear</mat-icon>
+    </button>
+    <button color="primary" class="mtg-query-clause-operator"
+        (click)="toggleOperator('supertype', clause)">{{clause.operator}}</button>
+    <div class="mtg-query-clause-value">{{clause.value}}</div>
+</div>
+<div *ngFor="let clause of types; let i = index" class="mtg-query-clause">
+    <button class="mtg-query-clause-clear" (click)="clear('type', i)">
+        <mat-icon>clear</mat-icon>
+    </button>
+    <button color="primary" class="mtg-query-clause-operator"
+        (click)="toggleOperator('supertype', clause)">{{clause.operator}}</button>
+    <div class="mtg-query-clause-value">{{clause.value}}</div>
+</div>
+<div *ngFor="let clause of subtypes; let i = index" class="mtg-query-clause">
+    <button class="mtg-query-clause-clear" (click)="clear('subtype', i)">
+        <mat-icon>clear</mat-icon>
+    </button>
+    <button color="primary" class="mtg-query-clause-operator"
+        (click)="toggleOperator('supertype', clause)">{{clause.operator}}</button>
+    <div class="mtg-query-clause-value">{{clause.value}}</div>
+</div>
+<mat-form-field appearance="fill">
+    <input matInput [formControl]="valueCtrl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="autoCompleteOptionSelected($event)">
+        <ng-container *ngIf=" {
+            filteredSupertypes: filteredSupertypes$ | async,
+            filteredTypes: filteredTypes$ | async,
+            filteredSubtypes: filteredSubtypes$ | async
+        } as data">
+            <mat-optgroup label="Supertypes" *ngIf="data.filteredSupertypes && data.filteredSupertypes.length > 0">
+                <mat-option *ngFor="let supertype of data.filteredSupertypes" [value]="supertype">
+                    {{supertype}}
+                </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Types" *ngIf="data.filteredTypes && data.filteredTypes.length > 0">
+                <mat-option *ngFor="let type of data.filteredTypes" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Subtypes" *ngIf="data.filteredSubtypes && data.filteredSubtypes.length > 0">
+                <mat-option *ngFor="let subtype of data.filteredSubtypes" [value]="subtype">
+                    {{subtype}}
+                </mat-option>
+            </mat-optgroup>
+        </ng-container>
+    </mat-autocomplete>
+</mat-form-field>

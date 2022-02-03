@@ -32,22 +32,26 @@
         </div>
         <ng-container *ngIf="this.dataTypes$ | async as dataTypes">
             <div>
-                <app-list-input key="supertypesAnd" description="Supertype" placeholder="World, etc..."
+                <app-list-input description="Supertype" placeholder="World, etc..."
                     [(values)]="query.supertypesAnd" (valuesChange)="this.search.next()"
                     [possibleValues]="dataTypes.card.supertypes">
                 </app-list-input>
             </div>
             <div>
-                <app-list-input key="typesAnd" description="Type" placeholder="Creature, Instance, Sorcery..."
+                <app-list-input description="Type" placeholder="Creature, Instance, Sorcery..."
                     [(values)]="query.typesAnd" (valuesChange)="this.search.next()"
                     [possibleValues]="dataTypes.card.types">
                 </app-list-input>
             </div>
             <div>
-                <app-list-input key="subtypesAnd" description="Subtype" placeholder="Angel, Dragon, Frog..."
+                <app-list-input description="Subtype" placeholder="Angel, Dragon, Frog..."
                     [(values)]="query.subtypesAnd" (valuesChange)="this.search.next()"
                     [possibleValues]="dataTypes.card.subtypes">
                 </app-list-input>
+            </div>
+            <div>
+                <app-test [dataTypes]="dataTypes" [(supertypes)]="query.supertypes" [(types)]="query.types" [(subtypes)]="query.subtypes" (supertypesChange)="this.search.next()" (typesChange)="this.search.next()" (subtypesChange)="this.search.next()">
+                </app-test>
             </div>
         </ng-container>
         <!-- <mat-button-toggle-group [(ngModel)]="displayMode" name="fontStyle" aria-label="Font Style">

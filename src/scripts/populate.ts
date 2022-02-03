@@ -20,6 +20,9 @@ async function main() {
     const cardService = new CardService(db);
     const dataTypesService = new DataTypesService(db);
 
+    const supertypes = new Set<string>();
+    const types = new Set<string>();
+
     let enumsResponse: Response<string>;
 
     try {
@@ -85,7 +88,15 @@ async function main() {
                 card.printing = filteredCards[0];
             }
         }
-    })
+
+        if (card.legalities.commander === "Legal") {
+            card.supertypes.forEach(supertype => supertypes.add(supertype));
+            card.types.forEach(type => types.add(type));
+        }
+    });
+
+    dataTypes.card.supertypes = [...supertypes];
+    dataTypes.card.types = [...types];
 
     try {
         await client.connect();

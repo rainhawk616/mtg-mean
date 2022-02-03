@@ -1,15 +1,21 @@
+import { QueryClause } from "./query-clause.model";
+
 export default class Query {
-     nameAnd: string | undefined;
-     nameOr: string | undefined;
-     nameNot: string | undefined;
-     textAnd: string | undefined;
-     textOr: string | undefined;
-     textNot: string | undefined;
-     supertypesAnd: string[] = [];
-     typesAnd: string[] = [];
-     subtypesAnd: string[] = [];
-     pageIndex: number = 0;
-     pageSize: number = 20;
+    nameAnd: string | undefined;
+    nameOr: string | undefined;
+    nameNot: string | undefined;
+    textAnd: string | undefined;
+    textOr: string | undefined;
+    textNot: string | undefined;
+    supertypesAnd: string[] = [];
+    typesAnd: string[] = [];
+    subtypesAnd: string[] = [];
+    pageIndex: number = 0;
+    pageSize: number = 20;
+
+    supertypes: QueryClause[] = [];
+    types: QueryClause[] = [];
+    subtypes: QueryClause[] = [];
 
     constructor() {
 
@@ -23,7 +29,7 @@ export default class Query {
         return Query.getTerms(this.textAnd, this.textOr);
     }
 
-     static getTerms(str1: string | undefined, str2: string | undefined): string[] {
+    static getTerms(str1: string | undefined, str2: string | undefined): string[] {
         const result: string[] = [];
         if (str1 !== undefined) {
             result.push(...str1.split(' '))

@@ -21,3 +21,39 @@ mat-drawer-container {
     width:224px;
     height:312px;
 }
+
+.mtg-query-clause {
+    display:flex;
+    margin-bottom: 6px;
+}
+
+$mtg-query-size: 24px;
+
+.mtg-query-clause-clear {
+    height: $mtg-query-size;
+    width: $mtg-query-size;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-right: 6px;
+
+    mat-icon {
+        height: $mtg-query-size;
+        width: $mtg-query-size;
+        display: flex;
+        align-self: center;
+    }
+}
+
+.mtg-query-clause-operator {
+    height: $mtg-query-size;
+    min-width: 36px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-right: 6px;
+}
+
+.mtg-query-clause-value {
+    align-self: center;
+}
