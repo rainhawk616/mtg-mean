@@ -24,7 +24,7 @@
 </div>
 <mat-form-field appearance="fill">
     <mat-label>{{description}}</mat-label>
-    <input matInput placeholder={{placeholder}} [formControl]="valueCtrl" [matAutocomplete]="auto">
+    <input matInput placeholder={{placeholder}} [formControl]="valueCtrl" [matAutocomplete]="auto" (keyup.enter)="inputEnd($event)">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="autoCompleteOptionSelected($event)">
         <ng-container *ngIf=" {
             filteredSupertypes: filteredSupertypes$ | async,

@@ -1,16 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output, Query } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, EventEmitter, Input, OnInit, Output, Query, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { map, Observable, startWith, tap } from 'rxjs';
 import { DataTypes } from 'src/app/models/data-types.model';
 import { QueryClause } from 'src/app/models/query-clause.model';
 
 @Component({
-  selector: 'app-test[dataTypes]',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  selector: 'app-type-search[dataTypes]',
+  templateUrl: './type-search.component.html',
+  styleUrls: ['./type-search.component.scss']
 })
-export class TestComponent implements OnInit {
+export class TypeSearchComponent implements OnInit {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  
   @Input() dataTypes!: DataTypes;
   @Input() description!:string;
   @Input() placeholder!:string;
@@ -28,6 +31,8 @@ export class TestComponent implements OnInit {
   filteredSupertypes$: Observable<string[]>;
   filteredTypes$: Observable<string[]>;
   filteredSubtypes$: Observable<string[]>;
+
+  @ViewChild(MatAutocompleteTrigger) autocomplete!: MatAutocompleteTrigger;
 
   //possibleValues!:{type:string,value:string}[];
 
@@ -70,6 +75,38 @@ export class TestComponent implements OnInit {
       this.subtypesChange.emit(this.subtypes);
     }
     this.valueCtrl.setValue(null);
+  }
+
+  inputEnd(event:Event) {
+    console.log('inputEnd');
+    const value = (this.valueCtrl.value || '').trim().toLowerCase();
+
+    let matchingIndex = this.dataTypes.card.supertypes.map(value=>value.toLowerCase()).indexOf(value);
+    if (~matchingIndex) {
+      this.supertypes.push(new QueryClause<string>(this.dataTypes.card.supertypes[matchingIndex]));
+      this.supertypesChange.emit(this.supertypes);
+      this.valueCtrl.setValue(null);
+      this.autocomplete.closePanel();
+      return;
+    }
+
+    matchingIndex = this.dataTypes.card.types.map(value=>value.toLowerCase()).indexOf(value);
+    if (~matchingIndex) {
+      this.types.push(new QueryClause<string>(this.dataTypes.card.types[matchingIndex]));
+      this.typesChange.emit(this.types);
+      this.valueCtrl.setValue(null);
+      this.autocomplete.closePanel();
+      return;
+    }
+
+    matchingIndex = this.dataTypes.card.subtypes.map(value=>value.toLowerCase()).indexOf(value);
+    if (~matchingIndex) {
+      this.subtypes.push(new QueryClause<string>(this.dataTypes.card.subtypes[matchingIndex]));
+      this.subtypesChange.emit(this.subtypes);
+      this.valueCtrl.setValue(null);
+      this.autocomplete.closePanel();
+      return;
+    }
   }
 
   clear(type: string, index: number) {

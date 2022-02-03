@@ -50,8 +50,8 @@
                 </app-list-input>
             </div>
             <div>
-                <app-test [dataTypes]="dataTypes" description="Type" placeholder="Legendary, Creature, Dragon..." [(supertypes)]="query.supertypes" [(types)]="query.types" [(subtypes)]="query.subtypes" (supertypesChange)="this.search.next()" (typesChange)="this.search.next()" (subtypesChange)="this.search.next()">
-                </app-test>
+                <app-type-search [dataTypes]="dataTypes" description="Type" placeholder="Legendary, Creature, Dragon..." [(supertypes)]="query.supertypes" [(types)]="query.types" [(subtypes)]="query.subtypes" (supertypesChange)="this.search.next()" (typesChange)="this.search.next()" (subtypesChange)="this.search.next()">
+                </app-type-search>
             </div>
         </ng-container>
         <!-- <mat-button-toggle-group [(ngModel)]="displayMode" name="fontStyle" aria-label="Font Style">

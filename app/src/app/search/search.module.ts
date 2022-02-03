@@ -12,14 +12,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SearchComponent } from './search.component';
 import { LiveInputComponent } from './live-input/live-input.component';
 import { ListInputComponent } from './list-input/list-input.component';
-import { TestComponent } from './test/test.component';
+import { TypeSearchComponent } from './type-search/type-search.component';
 
 @NgModule({
   declarations: [
     LiveInputComponent,
     ListInputComponent,
     SearchComponent,
-    TestComponent,
+    TypeSearchComponent,
   ],
   imports: [
     CommonModule,
