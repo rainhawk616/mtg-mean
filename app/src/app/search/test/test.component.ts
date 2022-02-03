@@ -12,6 +12,8 @@ import { QueryClause } from 'src/app/models/query-clause.model';
 })
 export class TestComponent implements OnInit {
   @Input() dataTypes!: DataTypes;
+  @Input() description!:string;
+  @Input() placeholder!:string;
 
   @Input() supertypes!: QueryClause<string>[];
   @Output() supertypesChange: EventEmitter<QueryClause<string>[]> = new EventEmitter<QueryClause<string>[]>();

@@ -23,7 +23,8 @@
     <div class="mtg-query-clause-value">{{clause.value}}</div>
 </div>
 <mat-form-field appearance="fill">
-    <input matInput [formControl]="valueCtrl" [matAutocomplete]="auto">
+    <mat-label>{{description}}</mat-label>
+    <input matInput placeholder={{placeholder}} [formControl]="valueCtrl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="autoCompleteOptionSelected($event)">
         <ng-container *ngIf=" {
             filteredSupertypes: filteredSupertypes$ | async,

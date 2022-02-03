@@ -168,6 +168,17 @@ export class CardService {
       })
     }
 
+    if (typesOr && typesOr.length > 0) {
+      if (!filter.$and) {
+        filter.$and = [];
+      }
+      filter.$and!.push({
+        types: {
+          $in: typesOr
+        }
+      })
+    }
+
     if (subtypesAnd && subtypesAnd.length > 0) {
       if (!filter.$and) {
         filter.$and = [];
@@ -175,6 +186,17 @@ export class CardService {
       filter.$and.push({
         subtypes: {
           $all: subtypesAnd
+        }
+      })
+    }
+
+    if (subtypesOr && subtypesOr.length > 0) {
+      if (!filter.$and) {
+        filter.$and = [];
+      }
+      filter.$and!.push({
+        subtypes: {
+          $in: subtypesOr
         }
       })
     }
